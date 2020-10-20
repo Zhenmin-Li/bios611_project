@@ -15,7 +15,7 @@ In the previous version it use a different format which contains all the trump's
 Preliminary Figures:
 
 This is the top 20 of most used terms by Trump in 2016 and 2020.
-![Alt text](./proposal/Top20.png?raw=true "top20")
+![Alt text](./Top20.png?raw=true "top20")
  
 
 Questions:
@@ -29,13 +29,12 @@ How was Trump’s attitude toward some of the trending news and celebrities? (e.
 
 Modeling:
 
-In my prior experience ridge regression works better in NLP tasks. But I will try naïve bayes, decision tree and neural network and compare their results. 
 
 A popular visualization in sentiment analysis (and other NLP tasks) is WordCloud. It will be a figure like the following one.
-![Alt text](./proposal/wordcloud.png?raw=true "wordcloud") 
+![Alt text](./wordcloud.png?raw=true "wordcloud") 
 
 And maybe I can visualize the changing of sentiment like the following one. This one is real time. I think a real time one is too complex for me but a line chart and labels sounds like what I can do.
-![Alt text](./proposal/visualization.png?raw=true "visualization")  
+![Alt text](./visualization.png?raw=true "visualization")  
 
 Criteria:
 
