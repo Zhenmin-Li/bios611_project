@@ -1,0 +1,1 @@
+If you want to check the figures, perhaps you can try the wordclouds html files. It has a better interaction than in reports.
