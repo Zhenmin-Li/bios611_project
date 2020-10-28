@@ -1,9 +1,12 @@
 # Sentiment Analysis of Trump's Tweets before election
 
-Running the environment:
+The proposal is in the file "proposal"
+
+Running the environment (you could replace your_password with your password):
 
 ```
-docker build -< Dockerfile
+docker build . -t env1 --build-arg linux_user_pwd=your_password
+docker run -v "`pwd`:/home/rstudio" -p 8787:8787\-e PASSWORD=your_password -t env1
 ```
 
 # Make Targets
