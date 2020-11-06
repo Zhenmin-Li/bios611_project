@@ -1,0 +1,752 @@
+\PassOptionsToPackage{unicode=true}{hyperref} % options for packages loaded elsewhere
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provides euro and other symbols
+\else % if luatex or xelatex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage[]{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\IfFileExists{parskip.sty}{%
+\usepackage{parskip}
+}{% else
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+}
+\usepackage{hyperref}
+\hypersetup{
+            pdftitle={HW5},
+            pdfauthor={Zhenmin Li},
+            pdfborder={0 0 0},
+            breaklinks=true}
+\urlstyle{same}  % don't use monospace font for urls
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{0}
+% Redefines (sub)paragraphs to behave more like sections
+\ifx\paragraph\undefined\else
+\let\oldparagraph\paragraph
+\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+\let\oldsubparagraph\subparagraph
+\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+
+% set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+
+
+\title{HW5}
+\author{Zhenmin Li}
+\date{2020/10/24}
+
+\begin{document}
+\maketitle
+
+\hypertarget{q1}{%
+\section{Q1}\label{q1}}
+
+In the model trained using dataset in the previous homework (PRE),
+weight and height has a similar importance on the prediction. In the
+model trained using dataset in the current homework (CURR), the
+prediction result almost fully depends on the weight.
+
+The result from the model based on PRE mostly cumulated on around 0.5,
+which means the model is not quiet sure about the results. The one from
+CURR mostly cumulated on about 0 and 1, which means the model is quite
+sure for most predictions.
+
+I think this is because CURR is not normalized. According to our common
+sense, most males have higher weights than females, and the model would
+predict by weight.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(dplyr)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Attaching package: 'dplyr'
+\end{verbatim}
+
+\begin{verbatim}
+## The following objects are masked from 'package:stats':
+## 
+##     filter, lag
+\end{verbatim}
+
+\begin{verbatim}
+## The following objects are masked from 'package:base':
+## 
+##     intersect, setdiff, setequal, union
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(gbm)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Loaded gbm 2.1.8
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(tidyverse)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## -- Attaching packages ------------------------------------------------------------------------------- tidyverse 1.3.0 --
+\end{verbatim}
+
+\begin{verbatim}
+## v ggplot2 3.3.2     v purrr   0.3.4
+## v tibble  3.0.4     v stringr 1.4.0
+## v tidyr   1.1.2     v forcats 0.5.0
+## v readr   1.4.0
+\end{verbatim}
+
+\begin{verbatim}
+## -- Conflicts ---------------------------------------------------------------------------------- tidyverse_conflicts() --
+## x dplyr::filter() masks stats::filter()
+## x dplyr::lag()    masks stats::lag()
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(ggplot2)}
+\KeywordTok{library}\NormalTok{(gridExtra)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Attaching package: 'gridExtra'
+\end{verbatim}
+
+\begin{verbatim}
+## The following object is masked from 'package:dplyr':
+## 
+##     combine
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(ggfortify)}
+\KeywordTok{library}\NormalTok{(factoextra)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Welcome! Want to learn more? See two factoextra-related books at https://goo.gl/ve3WBa
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{nice_names <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(df)\{}
+  \KeywordTok{names}\NormalTok{(df) <-}\StringTok{ }\KeywordTok{names}\NormalTok{(df) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{str_replace_all}\NormalTok{(}\StringTok{"[^a-zA-Z0-9]+"}\NormalTok{,}\StringTok{"_"}\NormalTok{) }\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{str_replace_all}\NormalTok{(}\StringTok{"[_]+$"}\NormalTok{,}\StringTok{""}\NormalTok{) }\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{str_replace_all}\NormalTok{(}\StringTok{"^[_]+"}\NormalTok{,}\StringTok{""}\NormalTok{) }\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{tolower}\NormalTok{();}
+\NormalTok{  df}
+\NormalTok{\};}
+
+\NormalTok{info <-}\StringTok{ }\NormalTok{timetk}\OperatorTok{::}\KeywordTok{tk_tbl}\NormalTok{(data.table}\OperatorTok{::}\KeywordTok{fread}\NormalTok{(}\StringTok{"500_Person_Gender_Height_Weight_Index.csv"}\NormalTok{, }\DataTypeTok{header=}\NormalTok{T, }\DataTypeTok{stringsAsFactors=}\NormalTok{T)) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{drop_na}\NormalTok{() }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{nice_names}\NormalTok{() }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{female=}\NormalTok{gender}\OperatorTok{==}\StringTok{'Female'}\NormalTok{,}\DataTypeTok{train=}\KeywordTok{runif}\NormalTok{(}\KeywordTok{nrow}\NormalTok{(.))}\OperatorTok{<}\FloatTok{0.75}\NormalTok{) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{filter}\NormalTok{(height }\OperatorTok{>}\StringTok{ }\DecValTok{0} \OperatorTok{&}\StringTok{ }\NormalTok{weight }\OperatorTok{>}\StringTok{ }\DecValTok{0}\NormalTok{);}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning in
+## tk_tbl.data.frame(data.table::fread("500_Person_Gender_Height_Weight_Index.csv", :
+## Warning: No index to preserve. Object otherwise converted to tibble
+## successfully.
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{form <-}\StringTok{ }\NormalTok{female }\OperatorTok{~}\StringTok{ }\NormalTok{height }\OperatorTok{+}
+\StringTok{  }\NormalTok{weight }\OperatorTok{+}
+\StringTok{  }\KeywordTok{I}\NormalTok{(height}\OperatorTok{^}\DecValTok{2}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{I}\NormalTok{(weight}\OperatorTok{^}\DecValTok{2}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\NormalTok{height}\OperatorTok{:}\NormalTok{weight;}
+
+\NormalTok{model.gbm <-}\StringTok{ }\KeywordTok{gbm}\NormalTok{(form,}
+                 \DataTypeTok{distribution=}\StringTok{"bernoulli"}\NormalTok{,}
+\NormalTok{                 info }\OperatorTok{%>%}\StringTok{ }\KeywordTok{filter}\NormalTok{(train),}
+                 \DataTypeTok{n.trees =} \DecValTok{200}\NormalTok{,}
+                 \DataTypeTok{interaction.depth =} \DecValTok{5}\NormalTok{,}
+                 \DataTypeTok{shrinkage=}\FloatTok{0.1}\NormalTok{);}
+\KeywordTok{summary}\NormalTok{(model.gbm,}\DataTypeTok{plot=}\OtherTok{FALSE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##                         var  rel.inf
+## weight               weight 53.56935
+## height               height 46.43065
+## I(height^2)     I(height^2)  0.00000
+## I(weight^2)     I(weight^2)  0.00000
+## height:weight height:weight  0.00000
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{test <-}\StringTok{ }\NormalTok{info }\OperatorTok{%>%}\StringTok{ }\KeywordTok{filter}\NormalTok{(}\OperatorTok{!}\NormalTok{train);}
+\NormalTok{test}\OperatorTok{$}\NormalTok{female.p.gbm <-}\StringTok{ }\KeywordTok{predict}\NormalTok{(model.gbm, test, }\DataTypeTok{type=}\StringTok{"response"}\NormalTok{);}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Using 200 trees...
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{p1 <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(test, }\KeywordTok{aes}\NormalTok{(female.p.gbm)) }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_density}\NormalTok{()}
+
+\NormalTok{info1 <-}\StringTok{ }\NormalTok{timetk}\OperatorTok{::}\KeywordTok{tk_tbl}\NormalTok{(data.table}\OperatorTok{::}\KeywordTok{fread}\NormalTok{(}\StringTok{"datasets_26073_33239_weight-height.csv"}\NormalTok{, }\DataTypeTok{header=}\NormalTok{T, }\DataTypeTok{stringsAsFactors=}\NormalTok{T)) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{drop_na}\NormalTok{() }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{nice_names}\NormalTok{() }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{female=}\NormalTok{gender}\OperatorTok{==}\StringTok{'Female'}\NormalTok{,}\DataTypeTok{train=}\KeywordTok{runif}\NormalTok{(}\KeywordTok{nrow}\NormalTok{(.))}\OperatorTok{<}\FloatTok{0.75}\NormalTok{) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{filter}\NormalTok{(height }\OperatorTok{>}\StringTok{ }\DecValTok{0} \OperatorTok{&}\StringTok{ }\NormalTok{weight }\OperatorTok{>}\StringTok{ }\DecValTok{0}\NormalTok{);}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning in tk_tbl.data.frame(data.table::fread("datasets_26073_33239_weight-
+## height.csv", : Warning: No index to preserve. Object otherwise converted to
+## tibble successfully.
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{model.gbm1 <-}\StringTok{ }\KeywordTok{gbm}\NormalTok{(female }\OperatorTok{~}\StringTok{ }\NormalTok{height }\OperatorTok{+}
+\StringTok{                   }\NormalTok{weight }\OperatorTok{+}
+\StringTok{                   }\KeywordTok{I}\NormalTok{(height}\OperatorTok{^}\DecValTok{2}\NormalTok{) }\OperatorTok{+}
+\StringTok{                   }\KeywordTok{I}\NormalTok{(weight}\OperatorTok{^}\DecValTok{2}\NormalTok{) }\OperatorTok{+}
+\StringTok{                   }\NormalTok{height}\OperatorTok{:}\NormalTok{weight,}
+                 \DataTypeTok{distribution=}\StringTok{"bernoulli"}\NormalTok{,}
+\NormalTok{                 info1 }\OperatorTok{%>%}\StringTok{ }\KeywordTok{filter}\NormalTok{(train),}
+                 \DataTypeTok{n.trees =} \DecValTok{200}\NormalTok{,}
+                 \DataTypeTok{interaction.depth =} \DecValTok{5}\NormalTok{,}
+                 \DataTypeTok{shrinkage=}\FloatTok{0.1}\NormalTok{);}
+\KeywordTok{summary}\NormalTok{(model.gbm1,}\DataTypeTok{plot=}\OtherTok{FALSE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##                         var   rel.inf
+## weight               weight 91.704968
+## height               height  8.295032
+## I(height^2)     I(height^2)  0.000000
+## I(weight^2)     I(weight^2)  0.000000
+## height:weight height:weight  0.000000
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{test1 <-}\StringTok{ }\NormalTok{info1 }\OperatorTok{%>%}\StringTok{ }\KeywordTok{filter}\NormalTok{(}\OperatorTok{!}\NormalTok{train);}
+\NormalTok{test1}\OperatorTok{$}\NormalTok{female.p.gbm <-}\StringTok{ }\KeywordTok{predict}\NormalTok{(model.gbm1, test1, }\DataTypeTok{type=}\StringTok{"response"}\NormalTok{);}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Using 200 trees...
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{p2 <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(test1, }\KeywordTok{aes}\NormalTok{(female.p.gbm)) }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_density}\NormalTok{()}
+
+\KeywordTok{grid.arrange}\NormalTok{(p1, p2, }\DataTypeTok{ncol=}\DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{HW5_files/figure-latex/unnamed-chunk-1-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{c}\NormalTok{(}\KeywordTok{sum}\NormalTok{((test}\OperatorTok{$}\NormalTok{female.p.gbm}\OperatorTok{>}\FloatTok{0.5}\NormalTok{)}\OperatorTok{==}\NormalTok{test}\OperatorTok{$}\NormalTok{female)}\OperatorTok{/}\KeywordTok{nrow}\NormalTok{(test),}
+  \KeywordTok{sum}\NormalTok{(}\OtherTok{FALSE}\OperatorTok{==}\NormalTok{test}\OperatorTok{$}\NormalTok{female)}\OperatorTok{/}\KeywordTok{nrow}\NormalTok{(test),}
+  \KeywordTok{sum}\NormalTok{((test1}\OperatorTok{$}\NormalTok{female.p.gbm}\OperatorTok{>}\FloatTok{0.5}\NormalTok{)}\OperatorTok{==}\NormalTok{test1}\OperatorTok{$}\NormalTok{female)}\OperatorTok{/}\KeywordTok{nrow}\NormalTok{(test1),}
+  \KeywordTok{sum}\NormalTok{(}\OtherTok{FALSE}\OperatorTok{==}\NormalTok{test1}\OperatorTok{$}\NormalTok{female)}\OperatorTok{/}\KeywordTok{nrow}\NormalTok{(test1));}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.5333333 0.4740741 0.9110567 0.4957160
+\end{verbatim}
+
+\hypertarget{q2}{%
+\section{Q2}\label{q2}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  we can see that there are some irregularities with a total of 5, and
+  we remove them
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{info2 <-}\StringTok{ }\NormalTok{timetk}\OperatorTok{::}\KeywordTok{tk_tbl}\NormalTok{(data.table}\OperatorTok{::}\KeywordTok{fread}\NormalTok{(}\StringTok{"datasets_38396_60978_charcters_stats.csv"}\NormalTok{, }\DataTypeTok{header=}\NormalTok{T, }\DataTypeTok{stringsAsFactors=}\NormalTok{T)) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{drop_na}\NormalTok{() }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{nice_names}\NormalTok{() }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{train=}\KeywordTok{runif}\NormalTok{(}\KeywordTok{nrow}\NormalTok{(.))}\OperatorTok{<}\FloatTok{0.75}\NormalTok{) }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning in
+## tk_tbl.data.frame(data.table::fread("datasets_38396_60978_charcters_stats.csv", :
+## Warning: No index to preserve. Object otherwise converted to tibble
+## successfully.
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{info2}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 611 x 10
+##    name  alignment intelligence strength speed durability power combat total
+##    <fct> <fct>            <int>    <int> <int>      <int> <int>  <int> <int>
+##  1 3-D ~ good                50       31    43         32    25     52   233
+##  2 A-Bo~ good                38      100    17         80    17     64   316
+##  3 Abe ~ good                88       14    35         42    35     85   299
+##  4 Abin~ good                50       90    53         64    84     65   406
+##  5 Abom~ bad                 63       80    53         90    55     95   436
+##  6 Abra~ bad                 88      100    83         99   100     56   526
+##  7 Adam~ good                63       10    12        100    71     64   320
+##  8 Adam~ good                 1        1     1          1     0      1     5
+##  9 Agen~ good                 1        1     1          1     0      1     5
+## 10 Agen~ good                10        8    13          5     5     20    61
+## # ... with 601 more rows, and 1 more variable: train <lgl>
+\end{verbatim}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  seems we only needs pc1
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{info2 <-}\StringTok{ }\NormalTok{info2 }\OperatorTok{%>%}\StringTok{ }\KeywordTok{filter}\NormalTok{(total }\OperatorTok{>}\StringTok{ }\DecValTok{5}\NormalTok{)}
+
+\NormalTok{pcs <-}\StringTok{ }\KeywordTok{prcomp}\NormalTok{(info2[,}\DecValTok{3}\OperatorTok{:}\DecValTok{9}\NormalTok{]);}
+\KeywordTok{summary}\NormalTok{(pcs)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Importance of components:
+##                             PC1      PC2      PC3      PC4      PC5      PC6
+## Standard deviation     115.6597 24.68437 23.19102 19.01658 17.74925 17.02995
+## Proportion of Variance   0.8635  0.03933  0.03472  0.02334  0.02034  0.01872
+## Cumulative Proportion    0.8635  0.90288  0.93760  0.96094  0.98128  1.00000
+##                              PC7
+## Standard deviation     2.551e-14
+## Proportion of Variance 0.000e+00
+## Cumulative Proportion  1.000e+00
+\end{verbatim}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  I think not. The features are already in Percentile. Some of them are
+  out of limitation but I think it is still in the scale. Here I use
+  durability as an example
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{min=}\KeywordTok{sapply}\NormalTok{(info2[,}\DecValTok{3}\OperatorTok{:}\DecValTok{10}\NormalTok{],min),}\DataTypeTok{max=}\KeywordTok{sapply}\NormalTok{(info2[,}\DecValTok{3}\OperatorTok{:}\DecValTok{10}\NormalTok{],max))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##              min max
+## intelligence   1 113
+## strength       1 100
+## speed          1 100
+## durability     1 120
+## power          0 100
+## combat         1 101
+## total         36 581
+## train          0   1
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{top5 <-}\StringTok{ }\NormalTok{info2 }\OperatorTok{%>%}\StringTok{ }\KeywordTok{top_n}\NormalTok{(}\DecValTok{5}\NormalTok{,durability)}
+\NormalTok{top5[}\KeywordTok{with}\NormalTok{(top5, }\KeywordTok{order}\NormalTok{(}\OperatorTok{-}\NormalTok{durability)), ]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 55 x 10
+##    name  alignment intelligence strength speed durability power combat total
+##    <fct> <fct>            <int>    <int> <int>      <int> <int>  <int> <int>
+##  1 Doom~ bad                 88       80    67        120   100     90   545
+##  2 Star~ good                88       85   100        110   100     85   568
+##  3 Nova  good               100       85    67        101   100     85   538
+##  4 Silv~ good                63      100    84        101   100     32   480
+##  5 Adam~ good                63       10    12        100    71     64   320
+##  6 Amazo bad                 75      100   100        100   100    100   575
+##  7 Apoc~ bad                100      100    33        100   100     60   493
+##  8 Beyo~ good                88      100    23        100   100     56   467
+##  9 Biza~ neutral             75       95   100        100    95     85   550
+## 10 Blac~ bad                 88      100    92        100    89     56   525
+## # ... with 45 more rows, and 1 more variable: train <lgl>
+\end{verbatim}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{3}
+\tightlist
+\item
+  I create a new column like total and write the result of comparison in
+  compare Then show the top 5 of compare and it seems they are equal (no
+  value 1 which means they are not equal)
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{sum <-}\StringTok{ }\KeywordTok{transform}\NormalTok{(info2, }\DataTypeTok{sum=}\KeywordTok{rowSums}\NormalTok{(info2[,}\KeywordTok{c}\NormalTok{(}\DecValTok{7}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{4}\NormalTok{,}\DecValTok{5}\NormalTok{,}\DecValTok{6}\NormalTok{,}\DecValTok{8}\NormalTok{)]))}
+\NormalTok{sum}\OperatorTok{$}\NormalTok{compare <-}\StringTok{ }\KeywordTok{ifelse}\NormalTok{(sum}\OperatorTok{$}\NormalTok{total }\OperatorTok{==}\StringTok{ }\NormalTok{sum}\OperatorTok{$}\NormalTok{sum, }\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{)}
+\NormalTok{comp <-}\StringTok{ }\NormalTok{sum }\OperatorTok{%>%}\StringTok{ }\KeywordTok{top_n}\NormalTok{(}\DecValTok{5}\NormalTok{,compare)}
+\NormalTok{comp[}\KeywordTok{with}\NormalTok{(comp, }\KeywordTok{order}\NormalTok{(}\OperatorTok{-}\NormalTok{compare)), ]}\OperatorTok{$}\NormalTok{compare}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   [1] 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+##  [38] 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+##  [75] 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+## [112] 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+## [149] 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+## [186] 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+## [223] 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+## [260] 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+## [297] 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+## [334] 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+## [371] 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+## [408] 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+\end{verbatim}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{4}
+\tightlist
+\item
+  No If we check the pca of the data, We can see that PC1 take accounts
+  for most of PC1 which has most importance which means ``total'' is the
+  principle component of the data, and make other features useless
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pcs1 <-}\StringTok{ }\KeywordTok{prcomp}\NormalTok{(info2[,}\DecValTok{3}\OperatorTok{:}\DecValTok{8}\NormalTok{]);}
+\KeywordTok{summary}\NormalTok{(pcs1)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Importance of components:
+##                           PC1     PC2     PC3      PC4      PC5      PC6
+## Standard deviation     46.664 23.6134 22.8884 18.88294 17.74412 17.02230
+## Proportion of Variance  0.516  0.1321  0.1241  0.08449  0.07461  0.06866
+## Cumulative Proportion   0.516  0.6481  0.7722  0.85673  0.93134  1.00000
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pcs}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Standard deviations (1, .., p=7):
+## [1] 1.156597e+02 2.468437e+01 2.319102e+01 1.901658e+01 1.774925e+01
+## [6] 1.702995e+01 2.550823e-14
+## 
+## Rotation (n x k) = (7 x 7):
+##                     PC1        PC2        PC3         PC4          PC5
+## intelligence 0.08724079 -0.4889535  0.0954139 -0.11144941  0.644722478
+## strength     0.22815661  0.4035600 -0.4802491 -0.12337467  0.411166202
+## speed        0.12927447  0.1308655  0.1693489  0.88977302 -0.036741381
+## durability   0.21580237  0.3804719 -0.1866100 -0.25719501 -0.392768526
+## power        0.16116389  0.1036374  0.7651091 -0.33537677 -0.124826239
+## combat       0.09590209 -0.6424216 -0.3322937 -0.02450351 -0.493983148
+## total        0.91754021 -0.1128403  0.0307192  0.03787365  0.007569386
+##                       PC6        PC7
+## intelligence  0.416250531 -0.3779645
+## strength     -0.476768922 -0.3779645
+## speed         0.039751187 -0.3779645
+## durability    0.640760245 -0.3779645
+## power        -0.327073790 -0.3779645
+## combat       -0.283198306 -0.3779645
+## total         0.009720944  0.3779645
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pcs1}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Standard deviations (1, .., p=6):
+## [1] 46.66412 23.61344 22.88843 18.88294 17.74412 17.02230
+## 
+## Rotation (n x k) = (6 x 6):
+##                    PC1         PC2        PC3         PC4          PC5
+## intelligence 0.1610814 -0.42123376  0.4180341 -0.04892612  0.654052139
+## strength     0.6072148 -0.06014799 -0.4733042 -0.10205240  0.418940908
+## speed        0.3083501  0.16436338  0.1023077  0.92906380 -0.009315058
+## durability   0.5691860  0.08291554 -0.2156489 -0.22860415 -0.396377363
+## power        0.3918877  0.38491920  0.7199693 -0.25647714 -0.115438967
+## combat       0.1808714 -0.79805466  0.1609454  0.07740552 -0.475580041
+##                      PC6
+## intelligence -0.43781780
+## strength      0.46661477
+## speed        -0.06474356
+## durability   -0.64286309
+## power         0.31748807
+## combat        0.26892912
+\end{verbatim}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{5}
+\tightlist
+\item
+  I don't know why I can't use the code in lecture 10 so I use another
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pca.plot <-}\StringTok{ }\KeywordTok{autoplot}\NormalTok{(pcs, }\DataTypeTok{data =}\NormalTok{ info2, }\DataTypeTok{colour =} \StringTok{'alignment'}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: `select_()` is deprecated as of dplyr 0.7.0.
+## Please use `select()` instead.
+## This warning is displayed once every 8 hours.
+## Call `lifecycle::last_warnings()` to see where this warning was generated.
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pca.plot}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{HW5_files/figure-latex/unnamed-chunk-7-1.pdf}
+
+\hypertarget{q3}{%
+\section{Q3}\label{q3}}
+
+Please see the ipynb file attached. The following is the r code use to
+plot. I have no findings to the plot.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{lowd <-}\StringTok{ }\NormalTok{timetk}\OperatorTok{::}\KeywordTok{tk_tbl}\NormalTok{(data.table}\OperatorTok{::}\KeywordTok{fread}\NormalTok{(}\StringTok{"lowd.csv"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning in tk_tbl.data.frame(data.table::fread("lowd.csv")): Warning: No index
+## to preserve. Object otherwise converted to tibble successfully.
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(}\KeywordTok{ggplot}\NormalTok{(lowd,}\KeywordTok{aes}\NormalTok{(X1,X2)) }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_point}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{color=}\KeywordTok{factor}\NormalTok{(Alignment))))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{HW5_files/figure-latex/unnamed-chunk-8-1.pdf}
+
+\hypertarget{q4}{%
+\section{Q4}\label{q4}}
+
+It is in the last part of ipynb attached.
+
+\hypertarget{q5}{%
+\section{Q5}\label{q5}}
+
+Theresult is in the picture, in which the final parameters are
+``height'', ``weight'' and ``height:weight''.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(caret)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Loading required package: lattice
+\end{verbatim}
+
+\begin{verbatim}
+## 
+## Attaching package: 'caret'
+\end{verbatim}
+
+\begin{verbatim}
+## The following object is masked from 'package:purrr':
+## 
+##     lift
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{trainIndex <-}\StringTok{ }\KeywordTok{createDataPartition}\NormalTok{(info}\OperatorTok{$}\NormalTok{female, }\DataTypeTok{p =} \FloatTok{.8}\NormalTok{, }
+                                  \DataTypeTok{list =} \OtherTok{FALSE}\NormalTok{, }
+                                  \DataTypeTok{times =} \DecValTok{1}\NormalTok{)}
+\NormalTok{info}\OperatorTok{$}\NormalTok{female <-}\StringTok{ }\KeywordTok{factor}\NormalTok{(info}\OperatorTok{$}\NormalTok{female);}
+\NormalTok{train_ctrl <-}\StringTok{ }\KeywordTok{trainControl}\NormalTok{(}\DataTypeTok{method =} \StringTok{"repeatedcv"}\NormalTok{,}\DataTypeTok{number=}\DecValTok{50}\NormalTok{,}\DataTypeTok{repeats=}\DecValTok{5}\NormalTok{);}
+\NormalTok{gbmFit1 <-}\StringTok{ }\KeywordTok{train}\NormalTok{(form, }\DataTypeTok{data =}\NormalTok{ info }\OperatorTok{%>%}\StringTok{ }\KeywordTok{slice}\NormalTok{(trainIndex), }
+                 \DataTypeTok{method =} \StringTok{"gbm"}\NormalTok{, }
+                 \DataTypeTok{trControl =}\NormalTok{ train_ctrl,}
+                 \DataTypeTok{verbose =} \OtherTok{FALSE}\NormalTok{)}
+\KeywordTok{summary}\NormalTok{(gbmFit1)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{HW5_files/figure-latex/unnamed-chunk-9-1.pdf}
+
+\begin{verbatim}
+##                         var  rel.inf
+## height:weight height:weight 41.72747
+## height               height 30.91978
+## weight               weight 27.35275
+## I(height^2)     I(height^2)  0.00000
+## I(weight^2)     I(weight^2)  0.00000
+\end{verbatim}
+
+\hypertarget{q6}{%
+\section{Q6}\label{q6}}
+
+If the size of dataset is unlimited, we can simply divide the dataset
+into train set and test set for machine learning. But in practical
+situation the dataset is often limited, which means the train set is
+likely to bias, because it can only reflect certain parts of the pattern
+of the dataset. Because we train the model using the train set, the
+model will also likely to bias. This phenomenon will be more obvious if
+the size of dataset is more small. K-fold, and other cross validation,
+divide the dataset into k group and use 1 for test and others for
+training. This method allows to use the whole dataset, instead of some
+parts of it, to train the model. And the model will be unbiased based on
+the dataset.
+
+Because accuracy cannot fully reflect the performance of model, through
+it is an important criterion. For example, if I want to train a model to
+classify a dataset which has 990 males and 10 females, a model which
+classify all the data as male will have an accuracy of 99\%, but is
+useless. We need more approach (for this example, TPR and FPR) to
+evaluate the model.
+
+\#Q7
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  Assign a weight to each feature, and then use the predictive model to
+  train on these original features.
+\item
+  After obtaining the weight/ranking of the feature, take the absolute
+  value of these values and remove the minimum one.
+\item
+  Iterate the steps mentioned above until the number of remaining
+  features reaches the required limitations.
+\end{enumerate}
+
+\end{document}

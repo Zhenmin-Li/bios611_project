@@ -1,0 +1,196 @@
+---
+title: "HW5"
+author: "Zhenmin Li"
+date: "2020/10/24"
+output: html_document
+---
+
+
+# Q1
+
+In the model trained using dataset in the previous homework (PRE), weight and height has a similar importance on the prediction. In the model trained using dataset in the current homework (CURR), the prediction result almost fully depends on the weight.
+
+The result from the model based on PRE mostly cumulated on around 0.5, which means the model is not quiet sure about the results. The one from CURR mostly cumulated on about 0 and 1, which means the model is quite sure for most predictions.
+
+I think this is because CURR is not normalized. According to our common sense, most males have higher weights than females, and the model would predict by weight.
+
+```{r}
+library(dplyr)
+library(gbm)
+library(tidyverse)
+library(ggplot2)
+library(gridExtra)
+library(ggfortify)
+library(factoextra)
+
+nice_names <- function(df){
+  names(df) <- names(df) %>% str_replace_all("[^a-zA-Z0-9]+","_") %>%
+    str_replace_all("[_]+$","") %>%
+    str_replace_all("^[_]+","") %>%
+    tolower();
+  df
+};
+
+info <- timetk::tk_tbl(data.table::fread("500_Person_Gender_Height_Weight_Index.csv", header=T, stringsAsFactors=T)) %>%
+  drop_na() %>% 
+  nice_names() %>%
+  mutate(female=gender=='Female',train=runif(nrow(.))<0.75) %>%
+  filter(height > 0 & weight > 0);
+
+form <- female ~ height +
+  weight +
+  I(height^2) +
+  I(weight^2) +
+  height:weight;
+
+model.gbm <- gbm(form,
+                 distribution="bernoulli",
+                 info %>% filter(train),
+                 n.trees = 200,
+                 interaction.depth = 5,
+                 shrinkage=0.1);
+summary(model.gbm,plot=FALSE)
+
+test <- info %>% filter(!train);
+test$female.p.gbm <- predict(model.gbm, test, type="response");
+p1 <- ggplot(test, aes(female.p.gbm)) + geom_density()
+
+info1 <- timetk::tk_tbl(data.table::fread("datasets_26073_33239_weight-height.csv", header=T, stringsAsFactors=T)) %>%
+  drop_na() %>% 
+  nice_names() %>%
+  mutate(female=gender=='Female',train=runif(nrow(.))<0.75) %>%
+  filter(height > 0 & weight > 0);
+
+model.gbm1 <- gbm(female ~ height +
+                   weight +
+                   I(height^2) +
+                   I(weight^2) +
+                   height:weight,
+                 distribution="bernoulli",
+                 info1 %>% filter(train),
+                 n.trees = 200,
+                 interaction.depth = 5,
+                 shrinkage=0.1);
+summary(model.gbm1,plot=FALSE)
+
+test1 <- info1 %>% filter(!train);
+test1$female.p.gbm <- predict(model.gbm1, test1, type="response");
+p2 <- ggplot(test1, aes(female.p.gbm)) + geom_density()
+
+grid.arrange(p1, p2, ncol=2)
+
+c(sum((test$female.p.gbm>0.5)==test$female)/nrow(test),
+  sum(FALSE==test$female)/nrow(test),
+  sum((test1$female.p.gbm>0.5)==test1$female)/nrow(test1),
+  sum(FALSE==test1$female)/nrow(test1));
+```
+
+# Q2
+
+1. we can see that there are some irregularities with a total of 5, and we remove them 
+
+```{r}
+info2 <- timetk::tk_tbl(data.table::fread("datasets_38396_60978_charcters_stats.csv", header=T, stringsAsFactors=T)) %>%
+  drop_na() %>% 
+  nice_names() %>%
+  mutate(train=runif(nrow(.))<0.75) 
+info2
+```
+
+2. seems we only needs pc1
+
+```{r}
+info2 <- info2 %>% filter(total > 5)
+
+pcs <- prcomp(info2[,3:9]);
+summary(pcs)
+```
+
+3. I think not. The features are already in Percentile. 
+Some of them are out of limitation but I think it is still in the scale.
+Here I use durability as an example
+
+``````{r}
+data.frame(min=sapply(info2[,3:10],min),max=sapply(info2[,3:10],max))
+top5 <- info2 %>% top_n(5,durability)
+top5[with(top5, order(-durability)), ]
+```
+
+4. I create a new column like total and write the result of comparison in compare
+Then show the top 5 of compare and it seems they are equal (no value 1 which means they are not equal)
+
+``````{r}
+sum <- transform(info2, sum=rowSums(info2[,c(7,3,4,5,6,8)]))
+sum$compare <- ifelse(sum$total == sum$sum, 0, 1)
+comp <- sum %>% top_n(5,compare)
+comp[with(comp, order(-compare)), ]$compare
+```
+
+5. No
+If we check the pca of the data, 
+We can see that PC1 take accounts for most of PC1 which has most importance
+which means "total" is the principle component of the data, and make other features useless
+
+``````{r}
+pcs1 <- prcomp(info2[,3:8]);
+summary(pcs1)
+pcs
+pcs1
+```
+
+6. I don't know why I can't use the code in lecture 10 so I use another
+
+``````{r}
+pca.plot <- autoplot(pcs, data = info2, colour = 'alignment')
+pca.plot
+```
+
+# Q3
+
+Please see the ipynb file attached.
+The following is the r code use to plot. 
+I have no findings to the plot.
+
+``````{r}
+lowd <- timetk::tk_tbl(data.table::fread("lowd.csv"))
+(ggplot(lowd,aes(X1,X2)) + geom_point(aes(color=factor(Alignment))))
+```
+
+
+
+# Q4
+
+It is in the last part of ipynb attached.
+
+# Q5
+
+Theresult is in the picture, in which the final parameters are "height", "weight" and "height:weight".
+
+```{r}
+library(caret)
+trainIndex <- createDataPartition(info$female, p = .8, 
+                                  list = FALSE, 
+                                  times = 1)
+info$female <- factor(info$female);
+train_ctrl <- trainControl(method = "repeatedcv",number=50,repeats=5);
+gbmFit1 <- train(form, data = info %>% slice(trainIndex), 
+                 method = "gbm", 
+                 trControl = train_ctrl,
+                 verbose = FALSE)
+summary(gbmFit1)
+```
+
+# Q6
+
+If the size of dataset is unlimited, we can simply divide the dataset into train set and test set for machine learning. But in practical situation the dataset is often limited, which means the train set is likely to bias, because it can only reflect certain parts of the pattern of the dataset. Because we train the model using the train set, the model will also likely to bias. This phenomenon will be more obvious if the size of dataset is more small. K-fold, and other cross validation, divide the dataset into k group and use 1 for test and others for training. This method allows to use the whole dataset, instead of some parts of it, to train the model. And the model will be unbiased based on the dataset.
+
+Because accuracy cannot fully reflect the performance of model, through it is an important criterion. For example, if I want to train a model to classify a dataset which has 990 males and 10 females, a model which classify all the data as male will have an accuracy of 99%, but is useless. We need more approach (for this example, TPR and FPR) to evaluate the model.
+
+#Q7
+
+1.	Assign a weight to each feature, and then use the predictive model to train on these original features.
+
+2.	After obtaining the weight/ranking of the feature, take the absolute value of these values and remove the minimum one.
+
+3.	Iterate the steps mentioned above until the number of remaining features reaches the required limitations.
+
